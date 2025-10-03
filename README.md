@@ -1,6 +1,6 @@
 # ETL_finance_data_airflow
 
-[![Diagram(/diagram.png)]
+![Diagram](diagram.png){ width=600 height=400 }
 
 [![Python](https://img.shields.io/badge/Python-3.9-blue)](https://www.python.org/)
 [![Airflow](https://img.shields.io/badge/Apache%20Airflow-2.7-orange)](https://airflow.apache.org/)
