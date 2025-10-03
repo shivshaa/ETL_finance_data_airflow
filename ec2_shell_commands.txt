@@ -1,0 +1,41 @@
+1. sudo yum update -y
+2. sudo yum install python3-pip
+3. sudo pip install apache-airflow
+4. sudo pip install pandas
+5. sudo pip install s3fs
+6. sudo pip install yfinance
+
+python3 -m venv airflow_venv
+source airflow_venv/bin/activate
+ 
+pip install --upgrade pip setuptools wheel
+pip install "apache-airflow==2.9.3" \
+  --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.9.3/constraints-3.9.txt" 
+  
+>>airflow version
+
+>>airflow standalone
+>>airflow webserver --port 8080 --workers 1 (using this command due to RAM-Memory shortage)
+
+
+standalone | Airflow is ready
+standalone | Login with username: admin  password: swVTTtgmwNKcvxc9
+standalone | Airflow Standalone is for development purposes only. Do not use this in production!
+
+airflow users create \
+    --username admin \
+    --firstname Admin \
+    --lastname User \
+    --role Admin \
+    --email admin@example.com \
+    --password admin123
+	
+	
+[ec2-user@ip-172-31-5-154 ~]$ dir
+airflow  airflow_venv
+[ec2-user@ip-172-31-5-154 ~]$ cd airflow
+[ec2-user@ip-172-31-5-154 airflow]$ dir
+airflow-webserver.pid  airflow.cfg  airflow.db  logs  standalone_admin_password.txt  webserver_config.py
+
+To edit a file use:
+>> nano airflow.cfg	
