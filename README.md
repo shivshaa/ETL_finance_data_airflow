@@ -31,9 +31,4 @@ flowchart TD
     C --> D[Task 2: Transform data]
     D --> E[Task 3: Load CSV to S3]
     E --> F[AWS S3 Bucket]
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style B fill:#bbf,stroke:#333,stroke-width:2px
-    style C fill:#aff,stroke:#333,stroke-width:1px
-    style D fill:#afa,stroke:#333,stroke-width:1px
-    style E fill:#faa,stroke:#333,stroke-width:1px
-    style F fill:#ffb,stroke:#333,stroke-width:2px
+
