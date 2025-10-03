@@ -49,7 +49,7 @@ flowchart TD
 ---
 
 ## Tools & Technologies
-
+|----------------|-------------------------------------------------- |
 | Tool           | Purpose                                           |
 |----------------|-------------------------------------------------- |
 | Python         | Core programming for DAGs and ETL scripts         |
@@ -58,13 +58,13 @@ flowchart TD
 | AWS S3         | Storage for CSV output files                      |
 | yfinance API   | Source for financial market data                  |
 | Boto3          | Python SDK for interacting with AWS S3            |
-
+|----------------|-------------------------------------------------- |
 ## Airflow Setup Instructions
 
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/<username>/ETL_finance_data_airflow.git
+git clone https://github.com/shivshaa/ETL_finance_data_airflow.git
 cd ETL_finance_data_airflow
 ```
 
