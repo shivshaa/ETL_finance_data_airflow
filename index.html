@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ETL Finance Data Pipeline - Technical Documentation</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 2.5cm;
+        }
+		body {
+        font-family: 'Calibri', 'Arial', sans-serif;
+        line-height: 1.6;
+        color: #333;
+        max-width: 21cm;
+        margin: 0 auto;
+        padding: 2cm;
+        background: white;
+    }
+    
+    .header {
+        text-align: center;
+        border-bottom: 3px solid #2c3e50;
+        padding-bottom: 20px;
+        margin-bottom: 30px;
+    }
+    
+    h1 {
+        color: #2c3e50;
+        font-size: 28px;
+        margin-bottom: 10px;
+    }
+    
+    .subtitle {
+        color: #7f8c8d;
+        font-size: 16px;
+        margin-top: 5px;
+    }
+    
+    h2 {
+        color: #2c3e50;
+        font-size: 20px;
+        margin-top: 30px;
+        margin-bottom: 15px;
+        border-bottom: 2px solid #3498db;
+        padding-bottom: 5px;
+    }
+    
+    h3 {
+        color: #34495e;
+        font-size: 16px;
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+    
+    p {
+        text-align: justify;
+        margin-bottom: 12px;
+    }
+    
+    ul, ol {
+        margin-bottom: 15px;
+        padding-left: 30px;
+    }
+    
+    li {
+        margin-bottom: 8px;
+    }
+    
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+    }
+    
+    th, td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: left;
+    }
+    
+    th {
+        background-color: #3498db;
+        color: white;
+        font-weight: bold;
+    }
+    
+    tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+    
+    .code-block {
+        background-color: #f4f4f4;
+        border-left: 4px solid #3498db;
+        padding: 15px;
+        margin: 15px 0;
+        font-family: 'Courier New', monospace;
+        font-size: 13px;
+        overflow-x: auto;
+    }
+    
+    .flowchart {
+        background-color: #f8f9fa;
+        border: 2px solid #3498db;
+        border-radius: 8px;
+        padding: 30px;
+        margin: 25px 0;
+        text-align: center;
+    }
+    
+    .flow-box {
+        display: inline-block;
+        padding: 15px 25px;
+        margin: 10px;
+        border: 2px solid #2c3e50;
+        border-radius: 8px;
+        background-color: white;
+        font-weight: bold;
+        min-width: 150px;
+    }
+    
+    .flow-arrow {
+        font-size: 24px;
+        color: #3498db;
+        margin: 0 10px;
+    }
+    
+    .layer-title {
+        font-weight: bold;
+        color: #2c3e50;
+        margin: 15px 0 10px 0;
+        font-size: 14px;
+    }
+    
+    .screenshot-placeholder {
+        background-color: #ecf0f1;
+        border: 2px dashed #95a5a6;
+        padding: 40px;
+        margin: 20px 0;
+        text-align: center;
+        color: #7f8c8d;
+        font-style: italic;
+    }
+    
+    .note {
+        background-color: #fff9e6;
+        border-left: 4px solid #f39c12;
+        padding: 12px;
+        margin: 15px 0;
+    }
+    
+    .footer {
+        margin-top: 40px;
+        padding-top: 20px;
+        border-top: 2px solid #2c3e50;
+        text-align: center;
+        color: #7f8c8d;
+        font-size: 12px;
+    }
+    
+    @media print {
+        body {
+            margin: 0;
+            padding: 1cm;
+        }
+        .page-break {
+            page-break-after: always;
+        }
+    }
+	</style>
+	</head>
+<body>
+<div class="header">
+    <h1>ETL Finance Data Pipeline with Apache Airflow</h1>
+    <div class="subtitle">Technical Documentation</div>
+    <div class="author-info" style="margin-top:10px; font-size:14px; color:#555;">
+        <p><strong>Author:</strong> Shivsharan Patil</p>
+        <p><strong>GitHub:</strong> 
+            <a href="https://github.com/shivshaa/ETL_finance_data_airflow" target="_blank" style="color:#0366d6; text-decoration:none;">
+                https://github.com/shivshaa/ETL_finance_data_airflow
+            </a>
+        </p>
+        <p><strong>Email:</strong> 
+            <a href="mailto:shivsharanpatil404@gmail.com" style="color:#0366d6; text-decoration:none;">
+                shivsharanpatil404@gmail.com
+            </a>
+        </p>
+    </div>
+</div>
+
+<h2>1. Project Overview</h2>
+<p>This project implements a production-ready ETL (Extract, Transform, Load) pipeline for financial market data using Apache Airflow orchestration on AWS cloud infrastructure. The system automates the collection, processing, and storage of real-time stock market data from the Yahoo Finance API.</p>
+<h3>1.1 Key Capabilities</h3>
+<ul>
+    <li><strong>Automated Data Extraction:</strong> Retrieves real-time financial market data through the Yahoo Finance API</li>
+    <li><strong>Workflow Orchestration:</strong> Leverages Apache Airflow for pipeline scheduling, monitoring, and management</li>
+    <li><strong>Cloud Infrastructure:</strong> Operates on AWS EC2 with persistent storage in Amazon S3</li>
+    <li><strong>Data Quality Assurance:</strong> Implements validation mechanisms to ensure data integrity</li>
+    <li><strong>Modular Architecture:</strong> Designed for extensibility and integration of additional data sources</li>
+</ul>
+<h3>1.2 Use Cases</h3>
+<ul>
+    <li>Financial data aggregation and reporting systems</li>
+    <li>Investment portfolio tracking and analysis</li>
+    <li>Market research and trend identification</li>
+    <li>Machine learning model training datasets</li>
+</ul>
+<div class="page-break"></div>
+<h2>2. System Architecture</h2>
+<h3>2.1 Architecture Overview</h3>
+<div class="flowchart">
+    <div class="layer-title">AIRFLOW ORCHESTRATION LAYER</div>
+    <div>
+        <div class="flow-box" style="background-color: #e3f2fd;">Airflow Scheduler<br>(AWS EC2)</div>
+        <div class="flow-box" style="background-color: #e3f2fd;">Airflow Webserver<br>(Port 8080)</div>
+    </div>
+    <div class="flow-arrow">↓</div>
+    <div class="flow-box" style="background-color: #e1f5fe;">DAG: yfinance_dag</div>
+	<div class="flow-arrow">↓</div>
+
+<div class="layer-title">ETL PROCESSING PIPELINE</div>
+<div>
+    <div class="flow-box" style="background-color: #fff3e0;">Extract<br>Yahoo Finance API</div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-box" style="background-color: #fff3e0;">Transform<br>Data Processing</div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-box" style="background-color: #fff3e0;">Validate<br>Quality Checks</div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-box" style="background-color: #fff3e0;">Load<br>CSV Export</div>
+</div>
+
+<div class="flow-arrow">↓</div>
+
+<div class="layer-title">AWS STORAGE LAYER</div>
+<div class="flow-box" style="background-color: #e8f5e9;">AWS S3 Bucket<br>Data Repository</div>
+</div>
+<h3>2.2 Technology Stack</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Component</th>
+            <th>Technology</th>
+            <th>Purpose</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Compute</td>
+            <td>AWS EC2 (t2.micro)</td>
+            <td>Hosts Airflow services</td>
+        </tr>
+        <tr>
+            <td>Orchestration</td>
+            <td>Apache Airflow 2.7+</td>
+            <td>Workflow management</td>
+        </tr>
+        <tr>
+            <td>Data Source</td>
+            <td>Yahoo Finance API</td>
+            <td>Financial market data</td>
+        </tr>
+        <tr>
+            <td>Storage</td>
+            <td>AWS S3</td>
+            <td>CSV file storage</td>
+        </tr>
+        <tr>
+            <td>Language</td>
+            <td>Python 3.9+</td>
+            <td>ETL implementation</td>
+        </tr>
+    </tbody>
+</table>
+<div class="page-break"></div>
+<h2>3. Pipeline Workflow</h2>
+<p>The ETL pipeline executes four sequential stages through an Airflow DAG:</p>
+<h3>3.1 Data Extraction</h3>
+<p><strong>Task:</strong> fetch_financial_data</p>
+<p>Connects to Yahoo Finance API and retrieves historical stock data including OHLC prices, trading volume, and adjusted close prices. Supports multiple ticker symbols with retry logic for API failures.</p>
+<div class="code-block">
+import yfinance as yf
+def extract_market_data(ticker, period="1mo"):
+ticker_obj = yf.Ticker(ticker)
+data = ticker_obj.history(period=period)
+return data
+</div>
+<h3>3.2 Data Transformation</h3>
+<p><strong>Task:</strong> transform_data</p>
+<p>Cleanses raw data, handles missing values, normalizes data types, and calculates derived metrics. Converts data to pandas DataFrame format for processing.</p>
+<p><strong>Operations:</strong></p>
+<ul>
+    <li>Timestamp normalization and timezone handling</li>
+    <li>Column renaming for consistency</li>
+    <li>Data type casting and validation</li>
+    <li>Null value handling</li>
+</ul>
+<h3>3.3 Data Quality Validation</h3>
+<p><strong>Task:</strong> validate_data_quality</p>
+<p>Performs comprehensive checks including row count validation, column verification, data type consistency, and duplicate detection.</p>
+<h3>3.4 Data Loading</h3>
+<p><strong>Task:</strong> load_to_s3</p>
+<p>Converts processed data to CSV format and uploads to S3 bucket with timestamped filenames for versioning.</p>
+<div class="note">
+<strong>File Naming Convention:</strong> stocks_YYYY-MM-DD_HH-MM-SS.csv
+</div>
+<div class="page-break"></div>
+<h2>4. Installation and Setup</h2>
+<h3>4.1 EC2 Instance Setup</h3>
+<p><strong>Instance Specifications:</strong></p>
+<ul>
+    <li>AMI: Amazon Linux 2</li>
+    <li>Instance Type: t2.micro (Free Tier eligible)</li>
+    <li>Storage: 20GB GP3 EBS</li>
+</ul>
+<p><strong>Security Group Configuration:</strong></p>
+<ul>
+    <li>SSH (Port 22): Your IP address</li>
+    <li>HTTP (Port 8080): Your IP address</li>
+</ul>
+<h3>4.2 System Installation</h3>
+<div class="code-block">
+# Update system
+sudo yum update -y
+Install Python and dependencies
+sudo yum install python3-pip -y
+sudo yum groupinstall "Development Tools" -y
+Clone repository
+git clone https://github.com/shivshaa/ETL_finance_data_airflow.git
+cd ETL_finance_data_airflow
+Create virtual environment
+python3 -m venv airflow_venv
+source airflow_venv/bin/activate
+pip install --upgrade pip
+</div>
+<h3>4.3 Airflow Installation</h3>
+<div class="code-block">
+# Set Airflow home
+export AIRFLOW_HOME=~/airflow
+Install packages
+pip install apache-airflow==2.7.0
+pip install pandas s3fs yfinance boto3
+pip install apache-airflow-providers-amazon
+Initialize database
+airflow db init
+Create admin user
+airflow users create 
+--username admin 
+--firstname Admin 
+--lastname User 
+--role Admin 
+--email admin@example.com
+</div>
+<h3>4.4 Start Services</h3>
+<div class="code-block">
+# Start Airflow scheduler
+airflow scheduler -D
+Start Airflow webserver
+airflow webserver --port 8080 --workers 1 -D
+</div>
+<div class="page-break"></div>
+<h2>5. Configuration</h2>
+<h3>5.1 AWS Credentials</h3>
+<p><strong>Option 1: AWS CLI</strong></p>
+<div class="code-block">
+aws configure
+# Enter Access Key ID
+# Enter Secret Access Key
+# Enter Region (ap-south-1)
+# Enter Output format (json)
+</div>
+<p><strong>Option 2: IAM Role (Recommended)</strong></p>
+<p>Attach an IAM role to EC2 instance with S3 read/write permissions.</p>
+<h3>5.2 Airflow Connection</h3>
+<ol>
+    <li>Navigate to Admin → Connections in Airflow UI</li>
+    <li>Add new connection with Connection Id: <code>aws_default</code></li>
+    <li>Set Connection Type: Amazon Web Services</li>
+    <li>Configure credentials and region</li>
+</ol>
+<h3>5.3 DAG Configuration</h3>
+<div class="code-block">
+# Configure in dags/yfinance_dag.py
+default_args = {
+'owner': 'airflow',
+'start_date': datetime(2025, 10, 1),
+'retries': 3,
+'retry_delay': timedelta(minutes=5)
+}
+STOCK_TICKERS = ['AAPL', 'GOOGL', 'MSFT', 'AMZN']
+S3_BUCKET = 'yfinance-airflow-etl-data-01-10-2025'
+SCHEDULE_INTERVAL = '@daily'
+</div>
+<div class="page-break"></div>
+<h2>6. Operations and Monitoring</h2>
+<h3>6.1 Accessing Airflow</h3>
+<p>Navigate to: <code>http://&lt;EC2-PUBLIC-IP&gt;:8080</code></p>
+<p>Login with admin credentials created during setup.</p>
+<div class="screenshot-placeholder">
+  <p><strong>Screenshot:</strong> Airflow DAG Dashboard showing <code>yfinance_dag</code></p>
+  <img src="https://res.cloudinary.com/deximageapi/image/upload/v1759683610/Airflow%20ETL%20Project/airflow_UI_2_yt14oi.png" 
+       alt="Airflow DAG Dashboard showing yfinance_dag" 
+       style="max-width:100%; height:auto; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.2); margin-top:8px;">
+</div>
+
+<h3>6.2 Running the Pipeline</h3>
+<ol>
+    <li>Locate <strong>yfinance_dag</strong> in DAG list</li>
+    <li>Toggle activation switch to "On"</li>
+    <li>Click Trigger DAG button for manual execution</li>
+    <li>Monitor task status in real-time</li>
+</ol>
+<div class="screenshot-placeholder">
+  <p><strong>Screenshot:</strong> DAG Code View showing Python implementation</p>
+  <img src="https://res.cloudinary.com/deximageapi/image/upload/v1759683610/Airflow%20ETL%20Project/airflow_UI_1_xuxtnh.png" 
+       alt="DAG Code View showing Python implementation" 
+       style="max-width:100%; height:auto; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.2); margin-top:8px;">
+</div>
+
+<h3>6.3 Monitoring Execution</h3>
+<p><strong>Web Interface:</strong></p>
+<ul>
+    <li>View task status (Success/Failed/Running)</li>
+    <li>Check individual task logs</li>
+    <li>Monitor execution metrics</li>
+</ul>
+<p><strong>Command Line:</strong></p>
+<div class="code-block">
+# List DAGs
+airflow dags list	
+List DAG runs
+airflow dags list-runs -d yfinance_dag
+View task logs
+airflow tasks logs yfinance_dag fetch_data 2025-10-03
+</div>
+<h3>6.4 Accessing Output Data</h3>
+<div class="screenshot-placeholder">
+  <p><strong>Screenshot:</strong> S3 Bucket showing processed CSV file</p>
+  <img src="https://res.cloudinary.com/deximageapi/image/upload/v1759683610/Airflow%20ETL%20Project/data_loaded_into_s3_l8qxba.png" 
+       alt="S3 Bucket showing processed CSV file"
+       style="max-width:100%; height:auto; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.2); margin-top:8px;">
+</div>
+<p><strong>AWS CLI:</strong></p>
+<div class="code-block">
+# List files
+aws s3 ls s3://yfinance-airflow-etl-data-01-10-2025/
+Download file
+aws s3 cp s3://bucket-name/stocks_2025-10-03_11-57-43.csv ./
+</div>
+<div class="page-break"></div>
+<h2>7. Troubleshooting</h2>
+<h3>7.1 Airflow Services Not Starting</h3>
+<p><strong>Solution:</strong></p>
+<div class="code-block">
+# Check ports
+netstat -tuln | grep 8080
+Kill existing processes
+pkill -f airflow
+Restart services
+airflow scheduler -D
+airflow webserver --port 8080 --workers 1 -D
+</div>
+<h3>7.2 DAG Not Visible</h3>
+<p><strong>Solution:</strong></p>
+<ul>
+    <li>Verify dags_folder in airflow.cfg</li>
+    <li>Check syntax: <code>python dags/yfinance_dag.py</code></li>
+    <li>Review scheduler logs</li>
+    <li>Restart scheduler</li>
+</ul>
+<h3>7.3 S3 Upload Failures</h3>
+<p><strong>Solution:</strong></p>
+<ul>
+    <li>Verify AWS credentials: <code>aws s3 ls</code></li>
+    <li>Check IAM permissions for S3 access</li>
+    <li>Confirm bucket name and region</li>
+    <li>Review task logs for boto3 errors</li>
+</ul>
+<h3>7.4 API Extraction Errors</h3>
+<p><strong>Solution:</strong></p>
+<ul>
+    <li>Check internet connectivity</li>
+    <li>Validate ticker symbols</li>
+    <li>Implement retry logic with exponential backoff</li>
+    <li>Update yfinance library version</li>
+</ul>
+<div class="page-break"></div>
+<h2>8. Project Structure</h2>
+<div class="code-block">
+ETL_finance_data_airflow/
+│
+├── dags/
+│   ├── yfinance_dag.py          # Main DAG definition
+│   └── __init__.py
+│
+├── scripts/
+│   ├── extract.py               # Data extraction logic
+│   ├── transform.py             # Data transformation
+│   ├── load.py                  # Data loading
+│   └── utils.py                 # Helper functions
+│
+├── config/
+│   ├── airflow.cfg              # Airflow configuration
+│   └── settings.py              # Application settings
+│
+├── tests/
+│   ├── test_extract.py
+│   ├── test_transform.py
+│   └── test_load.py
+│
+├── logs/                        # Execution logs
+├── requirements.txt             # Dependencies
+└── README.md                    # Documentation
+</div>
+<h2>9. Screenshots</h2>
+<div class="screenshot-placeholder">
+  <p><strong>Screenshot:</strong> EC2 Instance Details showing running instance</p>
+  <img src="https://res.cloudinary.com/deximageapi/image/upload/v1759683610/Airflow%20ETL%20Project/ec2_instance_nt16ti.png"
+       alt="EC2 Instance Details showing running instance"
+       style="max-width:100%; height:auto; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.2); margin-top:8px;">
+</div>
+
+<div class="screenshot-placeholder" style="margin-top:24px;">
+  <p><strong>Screenshot:</strong> Terminal showing Airflow services running</p>
+  <img src="https://res.cloudinary.com/deximageapi/image/upload/v1759683613/Airflow%20ETL%20Project/running_airflow_server_isnzhj.png"
+       alt="Terminal showing Airflow services running"
+       style="max-width:100%; height:auto; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.2); margin-top:8px;">
+</div>
+
+<div class="footer">
+    <p><strong>ETL Finance Data Pipeline with Apache Airflow</strong></p>
+    <p>Version 1.0 | October 2025</p>
+    <p>GitHub: github.com/shivshaa/ETL_finance_data_airflow</p>
+</div>
+</body>
+</html>
